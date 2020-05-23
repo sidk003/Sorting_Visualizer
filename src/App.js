@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import "./App.css";
 import Sorter from "./components/sorter";
+import Navbar from "./components/Navbar";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Sorter></Sorter>
+        <Sorter />
       </div>
     );
   }
