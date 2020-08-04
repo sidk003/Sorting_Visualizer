@@ -27,15 +27,6 @@ function bubbleSort(n, animations, temp) {
       }
     }
   }
-  /*
-  for (i = 0; i < n; i++) {
-    console.log(array[i]);
-  }
-  console.log("\n");*/
-  /*
-  for (i = 0; i < n; i++) {
-    //console.log(temp[i]);
-    animations.push(temp[i]);
-  }*/
+
   return animations;
 }

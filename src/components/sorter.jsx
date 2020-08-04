@@ -1,13 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import "./Body.css";
+import Navbar from "../components/Navbar";
+import { MergeSortAnimation } from "../SortingAlgorithms/MergeSortAnimation";
 import { BubbleSortAnimation } from "../SortingAlgorithms/BubbleSortAnimation";
 import { InsertionSortAnimation } from "../SortingAlgorithms/InsertionSortAnimation";
-import { MergeSortAnimation } from "../SortingAlgorithms/MergeSortAnimation";
 import { QuickSortAnimation } from "../SortingAlgorithms/QuickSortAnimation";
 
-//No. of Array-Bars(This value chosen so that all bars fit in a single page)
-const NUMBER_OF_ARRAY_BARS = 79;
-//const NUMBER_OF_ARRAY_BARS = 5;
 //Main Color of the Array-Bars
 const PRIMARY_COLOR = "cornflowerblue";
 //Speed of the Animation
@@ -19,15 +17,7 @@ const FINAL_COLOR = "SlateBlue";
 //Total time taken to finish Sorting(Global Variable)
 let Total_time_taken;
 
-export default class Sorter extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      array: [],
-    };
-  }
-
+export default class Sorter extends Component {
   FinishedSorting() {
     let bars = document.getElementsByClassName("array-bar");
     setTimeout(() => {
@@ -36,27 +26,12 @@ export default class Sorter extends React.Component {
     }, Total_time_taken * ANIMATION_SPEED_MS);
   }
 
-  componentDidMount() {
-    this.PushRandomNumber();
-  }
-
-  //Function to push random nos. in the array
-  PushRandomNumber = () => {
-    const array = [];
-    for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
-      //Range of nos. is chosen so that array bar height fit in the page
-      //Least value is taken as 5 so that smallest bar is significantly visible
-      array.push(randomNoFromInterval(5, 535));
-    }
-    this.setState({ array });
-  };
-
-  bubbleSort() {
-    //console.log(this.state.array);
-    //const jsSortedArray = this.state.array.slice().sort((a, b) => a - b);
-    //const NewArray = BubbleSortAnimation(this.state.array);
+  bubbleSort = (array) => {
+    //console.log(array);
+    //const jsSortedArray = array.slice().sort((a, b) => a - b);
+    //const NewArray = BubbleSortAnimation(array);
     //console.log(checkIfArraysAreEqual(jsSortedArray, NewArray));
-    const animations = BubbleSortAnimation(this.state.array);
+    const animations = BubbleSortAnimation(array);
 
     const arrayBars = document.getElementsByClassName("array-bar");
 
@@ -80,20 +55,16 @@ export default class Sorter extends React.Component {
 
       Total_time_taken = i;
     }
-    //console.log(NewArray);
+    this.setState({ array });
+
     this.FinishedSorting();
-  }
+  };
 
-  insertionSort() {
-    /*console.log(this.state.array);
-    const jsSortedArray = this.state.array.slice().sort((a, b) => a - b);
-    const NewArray = InsertionSortAnimation(this.state.array);
-    console.log(checkIfArraysAreEqual(jsSortedArray, NewArray));*/
-    const animations = InsertionSortAnimation(this.state.array);
-  }
+  mergeSort = (array) => {
+    //do Merge Sort on array
 
-  mergeSort() {
-    const animations = MergeSortAnimation(this.state.array);
+    const animations = MergeSortAnimation(array);
+
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName("array-bar");
       const isColorChange = i % 3 !== 2;
@@ -115,85 +86,59 @@ export default class Sorter extends React.Component {
       }
       Total_time_taken = i;
     }
-    this.FinishedSorting();
-  }
 
-  quickSort() {
+    this.setState({ array });
+
+    this.FinishedSorting();
+  };
+
+  insertionSort = (array) => {
+    /*console.log(this.state.array);
+    const jsSortedArray = this.state.array.slice().sort((a, b) => a - b);
+    const NewArray = InsertionSortAnimation(this.state.array);
+    console.log(checkIfArraysAreEqual(jsSortedArray, NewArray));*/
+    const animations = InsertionSortAnimation(array);
+
+    const arrayBars = document.getElementsByClassName("array-bar");
+    let k;
+    let j;
+    for (j = 1; j <= array.length; j++) {
+      const [KeyIdx, newHeight1] = animations[j];
+      const KeyBarStyle = arrayBars[KeyIdx].style;
+
+      for (k = 0; k < j; k++) {
+        const [newBarIdx, newHeight2] = animations[k];
+        const newBarStyle = arrayBars[newBarIdx].style;
+
+        setTimeout(() => {
+          newBarStyle.height = `${newHeight2}px`;
+        }, (j + k) * ANIMATION_SPEED_MS);
+      }
+      setTimeout(() => {
+        KeyBarStyle.height = `${newHeight1}px`;
+      }, (j + k) * ANIMATION_SPEED_MS);
+    }
+  };
+
+  quickSort = (array) => {
     /*console.log(this.state.array);
     const jsSortedArray = this.state.array.slice().sort((a, b) => a - b);
     const NewArray = QuickSortAnimation(this.state.array);
     console.log(checkIfArraysAreEqual(jsSortedArray, NewArray));*/
-  }
+  };
 
   render() {
-    const { array } = this.state;
     return (
-      <div className="parent">
-        <nav className="navbar navbar-dark bg-dark">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <button
-                className="btn btn-outline-light navbar-btn"
-                onClick={() => this.PushRandomNumber()}
-              >
-                Generate New Array
-              </button>
-            </div>
-
-            <div className="btn-group" role="group" aria-label="Basic example">
-              <button
-                className="btn btn-outline-light navbar-btn m-2"
-                onClick={() => this.bubbleSort()}
-              >
-                Bubble Sort
-              </button>
-
-              <button
-                className="btn btn-outline-light navbar-btn m-2"
-                disabled
-                onClick={() => this.insertionSort()}
-              >
-                Insertion Sort
-              </button>
-
-              <button
-                className="btn btn-outline-light navbar-btn m-2"
-                onClick={() => this.mergeSort()}
-              >
-                Merge Sort
-              </button>
-
-              <button
-                className="btn btn-outline-light navbar-btn m-2"
-                disabled
-                onClick={() => this.quickSort()}
-              >
-                Quick Sort
-              </button>
-            </div>
-          </div>
-        </nav>
-
-        <div className="array-container">
-          {array.map((value, index) => (
-            <div
-              className="array-bar"
-              key={index}
-              style={{
-                backgroundColor: PRIMARY_COLOR,
-                height: `${value}px`,
-              }}
-            ></div>
-          ))}
-        </div>
+      <div>
+        <Navbar
+          mergeSort={this.mergeSort}
+          bubbleSort={this.bubbleSort}
+          insertionSort={this.insertionSort}
+          quickSort={this.quickSort}
+        />
       </div>
     );
   }
-}
-
-//Function to generate random nos. in a specified range(Requirement of javascript to specify range)
-function randomNoFromInterval(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function checkIfArraysAreEqual(arrayOne, arrayTwo) {
