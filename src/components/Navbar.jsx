@@ -5,7 +5,7 @@ const NUMBER_OF_ARRAY_BARS = 79;
 //const NUMBER_OF_ARRAY_BARS = 5;
 
 //Main Color of the Array-Bars
-const PRIMARY_COLOR = "cornflowerblue";
+const PRIMARY_COLOR = "red";
 
 export default class Navbar extends Component {
   constructor(props) {
