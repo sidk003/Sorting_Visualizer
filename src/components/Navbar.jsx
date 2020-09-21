@@ -4,8 +4,8 @@ import React, { Component } from "react";
 const NUMBER_OF_ARRAY_BARS = 79;
 //const NUMBER_OF_ARRAY_BARS = 5;
 
-//Main Color of the Array-Bars
-const PRIMARY_COLOR = "red";
+//Main Color of the Array-Barsz
+const PRIMARY_COLOR = "cornflowerblue";
 
 export default class Navbar extends Component {
   constructor(props) {
