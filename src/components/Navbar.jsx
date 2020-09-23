@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 
 //No. of Array-Bars(This value chosen so that all bars fit in a single page)
-const NUMBER_OF_ARRAY_BARS = 79;
-//const NUMBER_OF_ARRAY_BARS = 5;
+const NUMBER_OF_ARRAY_BARS = 80;
+// const NUMBER_OF_ARRAY_BARS = 5;
 
+<<<<<<< HEAD
 //Main Color of the Array-Barsz
+=======
+//Main Color of the Array-Bars
+>>>>>>> 725e8dcb51e77c83ca33ad14128075097dfa8ae1
 const PRIMARY_COLOR = "cornflowerblue";
 
 export default class Navbar extends Component {
@@ -21,17 +25,28 @@ export default class Navbar extends Component {
   }
   //Function to push random nos. in the array
   PushRandomNumber = () => {
-    const array = [];
-    for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
-      //Range of nos. is chosen so that array bar height fit in the page
-      //Least value is taken as 5 so that smallest bar is significantly visible
-      array.push(randomNoFromInterval(5, 535));
+    if (
+      this.props.finishedSorting === true ||
+      this.props.initialSort === true
+    ) {
+      const array = [];
+      for (let i = 0; i < NUMBER_OF_ARRAY_BARS - 1; i++) {
+        //Range of nos. is chosen so that array bar height fit in the page
+        //Least value is taken as 5 so that smallest bar is significantly visible
+        array.push(randomNoFromInterval(5, 535));
+      }
+      array.push(535);
+      let bars = document.getElementsByClassName("array-bar");
+      //change color to blue
+      for (let i = 0; i < bars.length; i++)
+        bars[i].style.backgroundColor = PRIMARY_COLOR;
+
+      this.setState({ array });
     }
-    this.setState({ array });
   };
 
-  handleInsertion = (e) => {
-    this.props.insertionSort(this.state.array);
+  handleSelection = (e) => {
+    this.props.selectionSort(this.state.array);
   };
 
   handleMerge = (e) => {
@@ -55,6 +70,7 @@ export default class Navbar extends Component {
             <div className="navbar-header">
               <button
                 className="btn btn-outline-light navbar-btn"
+                key={this.props.finishedSorting}
                 onClick={this.PushRandomNumber}
               >
                 Generate New Array
@@ -71,10 +87,9 @@ export default class Navbar extends Component {
 
               <button
                 className="btn btn-outline-light navbar-btn m-2"
-                disabled
-                onClick={() => this.handleinsertion()}
+                onClick={() => this.handleSelection()}
               >
-                Insertion Sort
+                Selection Sort
               </button>
 
               <button
@@ -86,7 +101,6 @@ export default class Navbar extends Component {
 
               <button
                 className="btn btn-outline-light navbar-btn m-2"
-                disabled
                 onClick={() => this.handleQuick()}
               >
                 Quick Sort
