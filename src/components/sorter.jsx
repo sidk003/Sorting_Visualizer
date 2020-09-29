@@ -14,6 +14,8 @@ const ANIMATION_SPEED_MS = 10;
 const SECONDARY_COLOR = "red";
 //Color of bars when array is Sorted
 const FINAL_COLOR = "SlateBlue";
+//Color of the bars when looping through them
+const PASS_COLOR = "green";
 //Total time taken to finish Sorting(Global Variable)
 var Total_time_taken;
 var initialSort = true;
@@ -50,13 +52,12 @@ export default class Sorter extends Component {
       const animations = BubbleSortAnimation(array);
 
       const arrayBars = document.getElementsByClassName("array-bar");
-      // var count = 0;
+
       for (let i = 0; i < animations.length - 1; i++) {
         const [barOneIdx, newHeight1] = animations[i];
         const [barTwoIdx, newHeight2] = animations[i + 1];
         const barOneStyle = arrayBars[barOneIdx].style;
         const barTwoStyle = arrayBars[barTwoIdx].style;
-
         //console.log(i, i + 1);
         setTimeout(() => {
           const Color = i % 2 ? SECONDARY_COLOR : PRIMARY_COLOR;
@@ -118,30 +119,64 @@ export default class Sorter extends Component {
     if (this.state.finishedSorting || initialSort) {
       initialSort = false;
       this.setState({ finishedSorting: false });
-      const animations = SelectionSortAnimation(array);
 
+      const animations = SelectionSortAnimation(array);
       const arrayBars = document.getElementsByClassName("array-bar");
 
-      for (let i = 0; i < animations.length - 1; i++) {
-        const [barOneIdx, newHeight1] = animations[i];
-        const [barTwoIdx, newHeight2] = animations[i + 1];
-        const barOneStyle = arrayBars[barOneIdx].style;
-        const barTwoStyle = arrayBars[barTwoIdx].style;
+      // console.log(animations);
+      var count = 0,
+        i = 0;
+      for (i = 0; i < animations.length; i++) {
+        //index and height of incoming minimum element in single pass
+        const [barIndex, barHeight] = animations[i];
 
-        // //console.log(i, i + 1);
-        // setTimeout(() => {
-        //   const Color = i % 2 ? SECONDARY_COLOR : PRIMARY_COLOR;
-        //   barOneStyle.backgroundColor = Color;
-        //   barTwoStyle.backgroundColor = Color;
-        // }, i * ANIMATION_SPEED_MS);
+        //minimum element
+        const barOneStyle = arrayBars[barIndex].style;
+        //current element
+        const barTwoStyle = arrayBars[count].style;
 
-        setTimeout(() => {
-          barOneStyle.height = `${newHeight1}px`;
-          barTwoStyle.height = `${newHeight2}px`;
-        }, i * ANIMATION_SPEED_MS);
+        //To blink bars from left to right
+        if (barHeight === 0) {
+          setTimeout(() => {
+            barOneStyle.backgroundColor = PASS_COLOR;
+          }, i * ANIMATION_SPEED_MS);
 
-        Total_time_taken = i;
+          setTimeout(() => {
+            barOneStyle.backgroundColor = PRIMARY_COLOR;
+          }, i * ANIMATION_SPEED_MS + ANIMATION_SPEED_MS - 1);
+        }
+        //swap minimum and current element
+        else {
+          setTimeout(() => {
+            barOneStyle.backgroundColor = SECONDARY_COLOR;
+          }, i * ANIMATION_SPEED_MS);
+
+          setTimeout(() => {
+            barOneStyle.backgroundColor = PRIMARY_COLOR;
+          }, i * ANIMATION_SPEED_MS + ANIMATION_SPEED_MS - 1);
+
+          setTimeout(() => {
+            barTwoStyle.backgroundColor = SECONDARY_COLOR;
+          }, i * ANIMATION_SPEED_MS);
+
+          setTimeout(() => {
+            barTwoStyle.backgroundColor = PASS_COLOR;
+          }, i * ANIMATION_SPEED_MS + ANIMATION_SPEED_MS - 1);
+
+          setTimeout(() => {
+            barOneStyle.height = barTwoStyle.height;
+          }, i * ANIMATION_SPEED_MS);
+
+          setTimeout(() => {
+            barTwoStyle.height = `${barHeight}px`;
+          }, i * ANIMATION_SPEED_MS);
+
+          count++;
+        }
+
+        Total_time_taken = i + 1;
       }
+
       this.setState({ array });
 
       this.FinishedSorting();
@@ -233,11 +268,11 @@ export default class Sorter extends Component {
   }
 }
 
-function checkIfArraysAreEqual(arrayOne, arrayTwo) {
-  if (arrayOne.length !== arrayTwo.length) return false;
+// function checkIfArraysAreEqual(arrayOne, arrayTwo) {
+//   if (arrayOne.length !== arrayTwo.length) return false;
 
-  for (let i = 0; i < arrayOne.length; i++) {
-    if (arrayOne[i] !== arrayTwo[i]) return false;
-  }
-  return true;
-}
+//   for (let i = 0; i < arrayOne.length; i++) {
+//     if (arrayOne[i] !== arrayTwo[i]) return false;
+//   }
+//   return true;
+// }

@@ -98,6 +98,7 @@ export default class Navbar extends Component {
               <button
                 className="btn btn-outline-light navbar-btn m-2"
                 onClick={() => this.handleQuick()}
+                disabled={true}
               >
                 Quick Sort
               </button>

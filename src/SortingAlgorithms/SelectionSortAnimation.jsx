@@ -13,20 +13,17 @@ function selectionSort(n, temp, animations) {
 
   for (i = 0; i < n - 1; i++) {
     min = i;
-    for (j = i + 1; j < n; j++) {
+    for (j = i + 1; j <= n; j++) {
+      animations.push([j - 1, 0]);
       if (temp[j] < temp[min]) {
         min = j;
       }
     }
-    animations.push([i, temp[i]]);
+
     animations.push([min, temp[min]]);
 
     tempVariable = temp[i];
     temp[i] = temp[min];
     temp[min] = tempVariable;
-
-    animations.push([i, temp[i]]);
-    animations.push([min, temp[min]]);
   }
-  return animations;
 }
