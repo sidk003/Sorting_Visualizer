@@ -29,7 +29,7 @@ export default class Navbar extends Component {
       for (let i = 0; i < NUMBER_OF_ARRAY_BARS - 1; i++) {
         //Range of nos. is chosen so that array bar height fit in the page
         //Least value is taken as 5 so that smallest bar is significantly visible
-        array.push(randomNoFromInterval(5, 535));
+        array.push(randomNoFromInterval(10, 535));
       }
       array.push(535);
       let bars = document.getElementsByClassName("array-bar");
@@ -98,7 +98,6 @@ export default class Navbar extends Component {
               <button
                 className="btn btn-outline-light navbar-btn m-2"
                 onClick={() => this.handleQuick()}
-                disabled={true}
               >
                 Quick Sort
               </button>

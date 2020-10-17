@@ -18,6 +18,7 @@ const FINAL_COLOR = "SlateBlue";
 const PASS_COLOR = "green";
 //Total time taken to finish Sorting(Global Variable)
 var Total_time_taken;
+//Flag to denote if any sorting button is clicked for the first time
 var initialSort = true;
 
 export default class Sorter extends Component {
@@ -59,6 +60,7 @@ export default class Sorter extends Component {
         const barOneStyle = arrayBars[barOneIdx].style;
         const barTwoStyle = arrayBars[barTwoIdx].style;
         //console.log(i, i + 1);
+
         setTimeout(() => {
           const Color = i % 2 ? SECONDARY_COLOR : PRIMARY_COLOR;
           barOneStyle.backgroundColor = Color;
@@ -147,6 +149,7 @@ export default class Sorter extends Component {
         }
         //swap minimum and current element
         else {
+          //next 2 timeouts to blink minimum element
           setTimeout(() => {
             barOneStyle.backgroundColor = SECONDARY_COLOR;
           }, i * ANIMATION_SPEED_MS);
@@ -155,6 +158,7 @@ export default class Sorter extends Component {
             barOneStyle.backgroundColor = PRIMARY_COLOR;
           }, i * ANIMATION_SPEED_MS + ANIMATION_SPEED_MS - 1);
 
+          //next 2 timeouts to blink current element
           setTimeout(() => {
             barTwoStyle.backgroundColor = SECONDARY_COLOR;
           }, i * ANIMATION_SPEED_MS);
@@ -163,6 +167,7 @@ export default class Sorter extends Component {
             barTwoStyle.backgroundColor = PASS_COLOR;
           }, i * ANIMATION_SPEED_MS + ANIMATION_SPEED_MS - 1);
 
+          //next 2 timouts to actually show swapping by swapping heights
           setTimeout(() => {
             barOneStyle.height = barTwoStyle.height;
           }, i * ANIMATION_SPEED_MS);
@@ -171,6 +176,7 @@ export default class Sorter extends Component {
             barTwoStyle.height = `${barHeight}px`;
           }, i * ANIMATION_SPEED_MS);
 
+          //Current element counter increment
           count++;
         }
 
@@ -190,66 +196,46 @@ export default class Sorter extends Component {
       const animations = QuickSortAnimation(array);
 
       const arrayBars = document.getElementsByClassName("array-bar");
+      var i = 0;
+      for (i = 0; i < animations.length; i++) {
+        const [
+          barOneHeight,
+          barOneIdx,
+          barTwoHeight,
+          barTwoIdx,
+          barColor,
+        ] = animations[i];
 
-      for (let i = 0; i < animations.length - 1; i++) {
-        const [barOneIdx, newHeight1] = animations[i];
-        const [barTwoIdx, newHeight2] = animations[i + 1];
         const barOneStyle = arrayBars[barOneIdx].style;
         const barTwoStyle = arrayBars[barTwoIdx].style;
 
-        // //console.log(i, i + 1);
-        // setTimeout(() => {
-        //   const Color = i % 2 ? SECONDARY_COLOR : PRIMARY_COLOR;
-        //   barOneStyle.backgroundColor = Color;
-        //   barTwoStyle.backgroundColor = Color;
-        // }, i * ANIMATION_SPEED_MS);
+        if (barTwoHeight === 0) {
+          setTimeout(() => {
+            barOneStyle.backgroundColor = barColor;
+          }, i * ANIMATION_SPEED_MS);
+        } else {
+          console.log(
+            "barOne : ",
+            barOneHeight,
+            "barTwo : ",
+            barTwoHeight,
+            barColor
+          );
 
-        setTimeout(() => {
-          barOneStyle.height = `${newHeight1}px`;
-          barTwoStyle.height = `${newHeight2}px`;
-        }, i * ANIMATION_SPEED_MS);
-
-        Total_time_taken = i;
+          setTimeout(() => {
+            barOneStyle.height = `${barOneHeight}px`;
+            barTwoStyle.height = `${barTwoHeight}px`;
+            barOneStyle.backgroundColor = barColor;
+            barTwoStyle.backgroundColor = barColor;
+          }, i * ANIMATION_SPEED_MS);
+        }
       }
-      this.setState({ array });
 
-      this.FinishedSorting();
+      Total_time_taken = i;
     }
+    this.setState({ array });
 
-    // if (this.state.finishedSorting || initialSort) {
-    //   initialSort = false;
-    //   this.setState({ finishedSorting: false });
-    //   const animations = QuickSortAnimation(array);
-
-    //   const arrayBars = document.getElementsByClassName("array-bar");
-
-    //   for (let i = 0; i < animations.length - 1; i++) {
-    //     const [barOneIdx, newHeight1] = animations[i];
-    //     const [barTwoIdx, newHeight2] = animations[i + 1];
-    //     const barOneStyle = arrayBars[barOneIdx].style;
-    //     const barTwoStyle = arrayBars[barTwoIdx].style;
-
-    //     // setTimeout(() => {
-    //     //   barOneStyle.backgroundColor = SECONDARY_COLOR;
-    //     //   barTwoStyle.backgroundColor = SECONDARY_COLOR;
-    //     // }, i * ANIMATION_SPEED_MS);
-
-    //     setTimeout(() => {
-    //       barOneStyle.height = `${newHeight1}px`;
-    //       barTwoStyle.height = `${newHeight2}px`;
-    //     }, i * ANIMATION_SPEED_MS);
-
-    //     Total_time_taken = i;
-    //   }
-
-    //   this.setState({ array });
-    //   this.FinishedSorting();
-    //   // console.log(array);
-    //   // const jsSortedArray = array.slice().sort((a, b) => a - b);
-    //   // const NewArray = QuickSortAnimation(array);
-    //   // console.log(NewArray);
-    //   // console.log(checkIfArraysAreEqual(jsSortedArray, NewArray));
-    // }
+    this.FinishedSorting();
   };
 
   render() {
