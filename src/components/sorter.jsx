@@ -42,11 +42,6 @@ export default class Sorter extends Component {
   }
 
   bubbleSort = (array) => {
-    // console.log(array);
-    // const jsSortedArray = array.slice().sort((a, b) => a - b);
-    // const NewArray = BubbleSortAnimation(array);
-    // console.log(checkIfArraysAreEqual(jsSortedArray, NewArray));
-
     if (this.state.finishedSorting || initialSort) {
       initialSort = false;
       this.setState({ finishedSorting: false });
@@ -54,22 +49,23 @@ export default class Sorter extends Component {
 
       const arrayBars = document.getElementsByClassName("array-bar");
 
-      for (let i = 0; i < animations.length - 1; i++) {
-        const [barOneIdx, newHeight1] = animations[i];
-        const [barTwoIdx, newHeight2] = animations[i + 1];
+      for (let i = 0; i < animations.length; i++) {
+        const [
+          barOneHeight,
+          barOneIdx,
+          barTwoHeight,
+          barTwoIdx,
+          barColor,
+        ] = animations[i];
+
         const barOneStyle = arrayBars[barOneIdx].style;
         const barTwoStyle = arrayBars[barTwoIdx].style;
-        //console.log(i, i + 1);
 
         setTimeout(() => {
-          const Color = i % 2 ? SECONDARY_COLOR : PRIMARY_COLOR;
-          barOneStyle.backgroundColor = Color;
-          barTwoStyle.backgroundColor = Color;
-        }, i * ANIMATION_SPEED_MS);
-
-        setTimeout(() => {
-          barOneStyle.height = `${newHeight1}px`;
-          barTwoStyle.height = `${newHeight2}px`;
+          barOneStyle.height = `${barOneHeight}px`;
+          barTwoStyle.height = `${barTwoHeight}px`;
+          barOneStyle.backgroundColor = barColor;
+          barTwoStyle.backgroundColor = barColor;
         }, i * ANIMATION_SPEED_MS);
 
         Total_time_taken = i;
