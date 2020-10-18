@@ -2,20 +2,21 @@ body {
   overflow: hidden;
 }
 
-.array-container {
+/* .array-container {
   padding-top: 20px;
   background-color: rgb(230, 230, 230);
-  height: 90vh;
-}
+  height: 100vh;
+  width: 100vw;
+} */
 
-.array-bar {
+/* .array-bar {
   position: relative;
   width: 50px;
   display: inline-block;
   margin: 1.25px;
   margin-top: 35px;
   transition: all 0.3s ease;
-}
+} */
 
 .array-bar:hover {
   background-color: green !important;
@@ -24,4 +25,54 @@ body {
   -moz-transition: background-color 1s ease-out;
   -o-transition: background-color 1s ease-out;
   transition: background-color 1s ease-out;
+}
+@media screen and (max-width: 1199px) {
+  .array-container {
+    background-color: rgb(230, 230, 230);
+    height: 100vh !important;
+    padding-left: 6px !important;
+  }
+
+  .array-bar {
+    position: relative;
+    width: 3.5vw !important;
+    display: inline-block;
+    transition: all 0.3s ease;
+    margin: 0.15vw;
+    margin-top: 0.5vh !important;
+  }
+}
+
+@media (min-width: 1366px) and (max-width: 1919px) {
+  .array-container {
+    background-color: rgb(230, 230, 230);
+    height: 100vh !important;
+    padding-left: 6px !important;
+  }
+
+  .array-bar {
+    position: relative;
+    width: 3.5vw !important;
+    display: inline-block;
+    transition: all 0.3s ease;
+    margin-top: 7.5vh !important;
+    /* margin-bottom: 100vh !important; */
+  }
+}
+
+/* settings for 1920 * 1080 */
+@media (min-width: 1200px) {
+  .array-container {
+    background-color: rgb(230, 230, 230);
+    height: 100vh;
+    padding-left: 10px;
+  }
+  .array-bar {
+    position: relative;
+    width: 4vw;
+    display: inline-block;
+    margin: 0.15vw;
+    margin-top: 42vh;
+    transition: all 0.3s ease;
+  }
 }
