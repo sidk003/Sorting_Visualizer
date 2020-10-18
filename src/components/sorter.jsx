@@ -9,7 +9,7 @@ import { QuickSortAnimation } from "../SortingAlgorithms/QuickSortAnimation";
 //Main Color of the Array-Bars
 const PRIMARY_COLOR = "cornflowerblue";
 //Speed of the Animation
-const ANIMATION_SPEED_MS = 10;
+const ANIMATION_SPEED_MS = 120;
 //Color of the Array-Bars which are being compared during the sorting
 const SECONDARY_COLOR = "red";
 //Color of bars when array is Sorted
@@ -36,9 +36,6 @@ export default class Sorter extends Component {
     setTimeout(() => {
       for (let i = 0; i < bars.length; i++)
         bars[i].style.backgroundColor = FINAL_COLOR;
-    }, Total_time_taken * ANIMATION_SPEED_MS);
-    //to set the finished sorting flag as true after the animation is done
-    setTimeout(() => {
       this.setState({ finishedSorting: true });
     }, Total_time_taken * ANIMATION_SPEED_MS);
   }
@@ -62,12 +59,16 @@ export default class Sorter extends Component {
 
         const barOneStyle = arrayBars[barOneIdx].style;
         const barTwoStyle = arrayBars[barTwoIdx].style;
+        const barOneValue = arrayBars[barOneIdx];
+        const barTwoValue = arrayBars[barTwoIdx];
 
         setTimeout(() => {
           barOneStyle.height = `${barOneHeight}px`;
           barTwoStyle.height = `${barTwoHeight}px`;
           barOneStyle.backgroundColor = barColor;
           barTwoStyle.backgroundColor = barColor;
+          barOneValue.title = barOneHeight;
+          barTwoValue.title = barTwoHeight;
         }, i * ANIMATION_SPEED_MS);
 
         Total_time_taken = i;
@@ -94,6 +95,7 @@ export default class Sorter extends Component {
           const [barOneIdx, barTwoIdx] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           const barTwoStyle = arrayBars[barTwoIdx].style;
+
           const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
           setTimeout(() => {
             barOneStyle.backgroundColor = color;
@@ -103,7 +105,9 @@ export default class Sorter extends Component {
           setTimeout(() => {
             const [barOneIdx, newHeight] = animations[i];
             const barOneStyle = arrayBars[barOneIdx].style;
+            const barOneValue = arrayBars[barOneIdx];
             barOneStyle.height = `${newHeight}px`;
+            barOneValue.title = newHeight;
           }, i * ANIMATION_SPEED_MS);
         }
         Total_time_taken = i;
@@ -135,6 +139,8 @@ export default class Sorter extends Component {
 
         const barOneStyle = arrayBars[barOneIdx].style;
         const barTwoStyle = arrayBars[barTwoIdx].style;
+        const barOneValue = arrayBars[barOneIdx];
+        const barTwoValue = arrayBars[barTwoIdx];
 
         //no swapping required only red color to be highlighted to search the minimum element
         if (barTwoHeight === 0) {
@@ -149,6 +155,8 @@ export default class Sorter extends Component {
             barTwoStyle.height = `${barTwoHeight}px`;
             barOneStyle.backgroundColor = barColor;
             barTwoStyle.backgroundColor = barColor;
+            barOneValue.title = barOneHeight;
+            barTwoValue.title = barTwoHeight;
           }, i * ANIMATION_SPEED_MS);
         }
       }
@@ -180,25 +188,21 @@ export default class Sorter extends Component {
 
         const barOneStyle = arrayBars[barOneIdx].style;
         const barTwoStyle = arrayBars[barTwoIdx].style;
+        const barOneValue = arrayBars[barOneIdx];
+        const barTwoValue = arrayBars[barTwoIdx];
 
         if (barTwoHeight === 0) {
           setTimeout(() => {
             barOneStyle.backgroundColor = barColor;
           }, i * ANIMATION_SPEED_MS);
         } else {
-          console.log(
-            "barOne : ",
-            barOneHeight,
-            "barTwo : ",
-            barTwoHeight,
-            barColor
-          );
-
           setTimeout(() => {
             barOneStyle.height = `${barOneHeight}px`;
             barTwoStyle.height = `${barTwoHeight}px`;
             barOneStyle.backgroundColor = barColor;
             barTwoStyle.backgroundColor = barColor;
+            barOneValue.title = barOneHeight;
+            barTwoValue.title = barTwoHeight;
           }, i * ANIMATION_SPEED_MS);
         }
       }

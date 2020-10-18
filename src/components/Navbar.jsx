@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 //No. of Array-Bars(This value chosen so that all bars fit in a single page)
-const NUMBER_OF_ARRAY_BARS = 80;
+const NUMBER_OF_ARRAY_BARS = 26;
 // const NUMBER_OF_ARRAY_BARS = 5;
 
 //Main Color of the Array-Bars
@@ -112,6 +112,7 @@ export default class Navbar extends Component {
         <div className="array-container">
           {array.map((value, index) => (
             <div
+              title={value}
               className="array-bar"
               key={index}
               style={{

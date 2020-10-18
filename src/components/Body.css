@@ -5,15 +5,23 @@ body {
 .array-container {
   padding-top: 20px;
   background-color: rgb(230, 230, 230);
-  /* background-color: brown; */
   height: 90vh;
 }
 
 .array-bar {
   position: relative;
-  /* top: 25px; */
-  width: 15px;
+  width: 50px;
   display: inline-block;
-  margin: 1px;
+  margin: 1.25px;
   margin-top: 35px;
+  transition: all 0.3s ease;
+}
+
+.array-bar:hover {
+  background-color: green !important;
+  cursor: pointer;
+  -webkit-transition: background-color 1s ease-out;
+  -moz-transition: background-color 1s ease-out;
+  -o-transition: background-color 1s ease-out;
+  transition: background-color 1s ease-out;
 }
