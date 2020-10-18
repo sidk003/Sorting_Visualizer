@@ -14,8 +14,6 @@ const ANIMATION_SPEED_MS = 10;
 const SECONDARY_COLOR = "red";
 //Color of bars when array is Sorted
 const FINAL_COLOR = "SlateBlue";
-//Color of the bars when looping through them
-const PASS_COLOR = "green";
 //Total time taken to finish Sorting(Global Variable)
 var Total_time_taken;
 //Flag to denote if any sorting button is clicked for the first time
@@ -31,11 +29,15 @@ export default class Sorter extends Component {
   }
 
   FinishedSorting() {
+    //this function gets called when sorting of any type is completed to set-reset some flags and change final color
+
     let bars = document.getElementsByClassName("array-bar");
+    //to change color of all bars to final color one by one
     setTimeout(() => {
       for (let i = 0; i < bars.length; i++)
         bars[i].style.backgroundColor = FINAL_COLOR;
     }, Total_time_taken * ANIMATION_SPEED_MS);
+    //to set the finished sorting flag as true after the animation is done
     setTimeout(() => {
       this.setState({ finishedSorting: true });
     }, Total_time_taken * ANIMATION_SPEED_MS);
@@ -121,63 +123,37 @@ export default class Sorter extends Component {
       const animations = SelectionSortAnimation(array);
       const arrayBars = document.getElementsByClassName("array-bar");
 
-      // console.log(animations);
-      var count = 0,
-        i = 0;
+      var i = 0;
       for (i = 0; i < animations.length; i++) {
-        //index and height of incoming minimum element in single pass
-        const [barIndex, barHeight] = animations[i];
+        const [
+          barOneHeight,
+          barOneIdx,
+          barTwoHeight,
+          barTwoIdx,
+          barColor,
+        ] = animations[i];
 
-        //minimum element
-        const barOneStyle = arrayBars[barIndex].style;
-        //current element
-        const barTwoStyle = arrayBars[count].style;
+        const barOneStyle = arrayBars[barOneIdx].style;
+        const barTwoStyle = arrayBars[barTwoIdx].style;
 
-        //To blink bars from left to right
-        if (barHeight === 0) {
+        //no swapping required only red color to be highlighted to search the minimum element
+        if (barTwoHeight === 0) {
           setTimeout(() => {
-            barOneStyle.backgroundColor = PASS_COLOR;
+            barOneStyle.backgroundColor = barColor;
           }, i * ANIMATION_SPEED_MS);
-
-          setTimeout(() => {
-            barOneStyle.backgroundColor = PRIMARY_COLOR;
-          }, i * ANIMATION_SPEED_MS + ANIMATION_SPEED_MS - 1);
         }
-        //swap minimum and current element
+        //swap minimum element with left index
         else {
-          //next 2 timeouts to blink minimum element
           setTimeout(() => {
-            barOneStyle.backgroundColor = SECONDARY_COLOR;
+            barOneStyle.height = `${barOneHeight}px`;
+            barTwoStyle.height = `${barTwoHeight}px`;
+            barOneStyle.backgroundColor = barColor;
+            barTwoStyle.backgroundColor = barColor;
           }, i * ANIMATION_SPEED_MS);
-
-          setTimeout(() => {
-            barOneStyle.backgroundColor = PRIMARY_COLOR;
-          }, i * ANIMATION_SPEED_MS + ANIMATION_SPEED_MS - 1);
-
-          //next 2 timeouts to blink current element
-          setTimeout(() => {
-            barTwoStyle.backgroundColor = SECONDARY_COLOR;
-          }, i * ANIMATION_SPEED_MS);
-
-          setTimeout(() => {
-            barTwoStyle.backgroundColor = PASS_COLOR;
-          }, i * ANIMATION_SPEED_MS + ANIMATION_SPEED_MS - 1);
-
-          //next 2 timouts to actually show swapping by swapping heights
-          setTimeout(() => {
-            barOneStyle.height = barTwoStyle.height;
-          }, i * ANIMATION_SPEED_MS);
-
-          setTimeout(() => {
-            barTwoStyle.height = `${barHeight}px`;
-          }, i * ANIMATION_SPEED_MS);
-
-          //Current element counter increment
-          count++;
         }
-
-        Total_time_taken = i + 1;
       }
+
+      Total_time_taken = i;
 
       this.setState({ array });
 

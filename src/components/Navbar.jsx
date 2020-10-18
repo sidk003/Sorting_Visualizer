@@ -75,6 +75,7 @@ export default class Navbar extends Component {
 
             <div className="btn-group" role="group" aria-label="Basic example">
               <button
+                title="O(N^2) Average Time Complexity"
                 className="btn btn-outline-light navbar-btn m-2"
                 onClick={() => this.handleBubble()}
               >
@@ -82,6 +83,7 @@ export default class Navbar extends Component {
               </button>
 
               <button
+                title="O(N^2) Average Time Complexity"
                 className="btn btn-outline-light navbar-btn m-2"
                 onClick={() => this.handleSelection()}
               >
@@ -89,6 +91,7 @@ export default class Navbar extends Component {
               </button>
 
               <button
+                title="O(NLog(N)) Average Time Complexity"
                 className="btn btn-outline-light navbar-btn m-2"
                 onClick={() => this.handleMerge()}
               >
@@ -96,6 +99,7 @@ export default class Navbar extends Component {
               </button>
 
               <button
+                title="O(NLog(N)) Average Time Complexity"
                 className="btn btn-outline-light navbar-btn m-2"
                 onClick={() => this.handleQuick()}
               >
