@@ -6,6 +6,8 @@ const NUMBER_OF_ARRAY_BARS = 26;
 
 //Main Color of the Array-Bars
 const PRIMARY_COLOR = "cornflowerblue";
+// var WINDOW_WIDTH = window.innerWidth;
+var WINDOW_HEIGHT = window.innerHeight;
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -26,12 +28,11 @@ export default class Navbar extends Component {
       this.props.initialSort === true
     ) {
       const array = [];
-      for (let i = 0; i < NUMBER_OF_ARRAY_BARS - 1; i++) {
+      for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
         //Range of nos. is chosen so that array bar height fit in the page
         //Least value is taken as 5 so that smallest bar is significantly visible
-        array.push(randomNoFromInterval(10, 535));
+        array.push(randomNoFromInterval(10, WINDOW_HEIGHT - 100));
       }
-      array.push(535);
       let bars = document.getElementsByClassName("array-bar");
       //change color to blue
       for (let i = 0; i < bars.length; i++)

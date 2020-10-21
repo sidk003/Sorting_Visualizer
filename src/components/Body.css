@@ -1,78 +1,94 @@
 body {
+  background-color: rgb(230, 230, 230) !important;
   overflow: hidden;
 }
 
-/* .array-container {
-  padding-top: 20px;
-  background-color: rgb(230, 230, 230);
-  height: 100vh;
-  width: 100vw;
-} */
+.array-container {
+  position: absolute;
+  /* To set specific margin below the bars(trial and error) */
+  bottom: -4px;
+}
 
-/* .array-bar {
-  position: relative;
-  width: 50px;
-  display: inline-block;
-  margin: 1.25px;
-  margin-top: 35px;
+.array-bar {
+  bottom: 0px;
   transition: all 0.3s ease;
-} */
+  width: 3.55vw;
+  display: inline-block;
+  margin: 2px;
+}
 
 .array-bar:hover {
-  background-color: green !important;
+  background-color: #000078 !important;
   cursor: pointer;
   -webkit-transition: background-color 1s ease-out;
   -moz-transition: background-color 1s ease-out;
   -o-transition: background-color 1s ease-out;
   transition: background-color 1s ease-out;
 }
+/* Compatibilty for mobile screens and tablets to be added, works on std HD and UHD screen resolutions
+/* For small screens 
 @media screen and (max-width: 1199px) {
   .array-container {
-    background-color: rgb(230, 230, 230);
-    height: 100vh !important;
     padding-left: 6px !important;
   }
 
   .array-bar {
-    position: relative;
     width: 3.5vw !important;
-    display: inline-block;
-    transition: all 0.3s ease;
     margin: 0.15vw;
-    margin-top: 0.5vh !important;
   }
 }
+/* Small screens end here */
 
+/* for 1366 x 768 with variants 
 @media (min-width: 1366px) and (max-width: 1919px) {
   .array-container {
-    background-color: rgb(230, 230, 230);
-    height: 100vh !important;
     padding-left: 6px !important;
   }
 
   .array-bar {
-    position: relative;
     width: 3.5vw !important;
-    display: inline-block;
-    transition: all 0.3s ease;
+  }
+}
+/* with bookmarks tab 
+@media (min-height: 600px) and (max-height: 650px) {
+  .array-container {
+    padding-left: 6px !important;
+  }
+  .array-bar {
+    width: 3.5vw !important;
+    margin-top: 3vh !important;
+  }
+}
+/* without bookmarks tab 
+@media (min-height: 650px) and (max-height: 660px) {
+  .array-container {
+    padding-left: 6px !important;
+  }
+  .array-bar {
+    width: 3.5vw !important;
     margin-top: 7.5vh !important;
-    /* margin-bottom: 100vh !important; */
   }
 }
 
-/* settings for 1920 * 1080 */
+@media (min-height: 661px) and (max-height: 670px) {
+  .array-container {
+    padding-left: 6px !important;
+  }
+  .array-bar {
+    width: 3.5vw !important;
+    margin-top: 8.5vh !important;
+  }
+}
+/* for 1366 x 768 with variants ends here*/
+
+/* settings for 1920 * 1080 
 @media (min-width: 1200px) {
   .array-container {
-    background-color: rgb(230, 230, 230);
-    height: 100vh;
     padding-left: 10px;
   }
   .array-bar {
-    position: relative;
     width: 4vw;
-    display: inline-block;
     margin: 0.15vw;
     margin-top: 42vh;
-    transition: all 0.3s ease;
   }
-}
+} */
