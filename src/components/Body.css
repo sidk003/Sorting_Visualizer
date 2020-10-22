@@ -5,16 +5,15 @@ body {
 
 .array-container {
   position: absolute;
-  /* To set specific margin below the bars(trial and error) */
-  bottom: -4px;
+  bottom: -5px !important;
 }
 
+/*  1366 x 768 screens*/
 .array-bar {
-  bottom: 0px;
-  transition: all 0.3s ease;
-  width: 3.55vw;
   display: inline-block;
-  margin: 2px;
+  transition: all 0.3s ease;
+  width: 3.65vw;
+  margin: 1.3px;
 }
 
 .array-bar:hover {
@@ -25,70 +24,116 @@ body {
   -o-transition: background-color 1s ease-out;
   transition: background-color 1s ease-out;
 }
-/* Compatibilty for mobile screens and tablets to be added, works on std HD and UHD screen resolutions
-/* For small screens 
-@media screen and (max-width: 1199px) {
-  .array-container {
-    padding-left: 6px !important;
-  }
 
-  .array-bar {
-    width: 3.5vw !important;
-    margin: 0.15vw;
-  }
-}
-/* Small screens end here */
-
-/* for 1366 x 768 with variants 
-@media (min-width: 1366px) and (max-width: 1919px) {
+/* support for mobile devices */
+@media (min-width: 200px) and (max-width: 399px) {
   .array-container {
-    padding-left: 6px !important;
-  }
-
-  .array-bar {
-    width: 3.5vw !important;
-  }
-}
-/* with bookmarks tab 
-@media (min-height: 600px) and (max-height: 650px) {
-  .array-container {
-    padding-left: 6px !important;
+    bottom: -285px;
   }
   .array-bar {
-    width: 3.5vw !important;
-    margin-top: 3vh !important;
-  }
-}
-/* without bookmarks tab 
-@media (min-height: 650px) and (max-height: 660px) {
-  .array-container {
-    padding-left: 6px !important;
-  }
-  .array-bar {
-    width: 3.5vw !important;
-    margin-top: 7.5vh !important;
+    width: 3.13vw;
+    margin: 1px;
   }
 }
 
-@media (min-height: 661px) and (max-height: 670px) {
+@media (min-width: 300px) and (max-width: 400px) {
   .array-container {
-    padding-left: 6px !important;
+    bottom: -75px;
   }
   .array-bar {
-    width: 3.5vw !important;
-    margin-top: 8.5vh !important;
+    width: 3.29vw;
+    margin: 1px;
   }
 }
-/* for 1366 x 768 with variants ends here*/
 
-/* settings for 1920 * 1080 
-@media (min-width: 1200px) {
+@media (min-width: 401px) and (max-width: 500px) {
   .array-container {
-    padding-left: 10px;
+    bottom: -7px;
   }
   .array-bar {
-    width: 4vw;
-    margin: 0.15vw;
-    margin-top: 42vh;
+    width: 3.35vw;
+    margin: 1px;
   }
-} */
+}
+
+/* For tablets */
+@media (min-width: 501px) and (max-width: 699px) {
+  .array-container {
+    bottom: -10px;
+  }
+  .array-bar {
+    width: 3.4vw;
+    margin: 1.2px;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 899px) {
+  .array-container {
+    bottom: -7px;
+  }
+  .array-bar {
+    width: 3.52vw;
+    margin: 1.2px;
+  }
+}
+
+/* for minimised screens */
+@media (min-width: 900px) and (max-width: 999px) {
+  .array-bar {
+    width: 3.62vw;
+    margin: 1px;
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1099px) {
+  .array-bar {
+    width: 3.61vw;
+    margin: 1.2px;
+  }
+}
+
+@media (min-width: 1100px) and (max-width: 1199px) {
+  .array-bar {
+    width: 3.66vw;
+    margin: 1px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1349px) {
+  .array-bar {
+    width: 3.68vw;
+    margin: 1px;
+  }
+}
+@media (min-width: 1500px) and (max-width: 1700px) {
+  .array-bar {
+    width: 3.7vw;
+    margin: 1px;
+  }
+}
+
+@media (min-width: 1701px) and (max-width: 1800px) {
+  .array-container {
+    bottom: -2px;
+  }
+  .array-bar {
+    width: 3.66vw;
+    margin: 1.5px;
+  }
+}
+@media (min-width: 1801px) and (max-width: 1900px) {
+  .array-bar {
+    width: 3.68vw;
+    margin: 1.4px;
+  }
+}
+/* 1920 x 1080 screens */
+@media (min-width: 1901px) {
+  .array-container {
+    bottom: -1px;
+  }
+  .array-bar {
+    width: 3.68vw;
+    margin: 1.5px;
+  }
+}
