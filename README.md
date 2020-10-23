@@ -1,3 +1,13 @@
+Link to the visualizer : https://sidk003.github.io/Sorting_Visualizer/
+
+This project is made using ReactJS.
+
+Site deployed using github-pages.
+
+
+_____________________________________________________________________________________________________________________________________________
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
